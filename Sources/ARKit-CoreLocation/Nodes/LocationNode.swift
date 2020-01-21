@@ -95,7 +95,7 @@ open class LocationNode: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    internal func location(_ bestLocationEstimate: SceneLocationEstimate?) -> CLLocation {
+    public func location(_ bestLocationEstimate: SceneLocationEstimate?) -> CLLocation {
         if locationConfirmed || locationEstimateMethod == .coreLocationDataOnly {
             return location!
         }
@@ -108,7 +108,7 @@ open class LocationNode: SCNNode {
         }
     }
 
-    internal func adjustedDistance(setup: Bool, position: SCNVector3, locationNodeLocation: CLLocation,
+    public func adjustedDistance(setup: Bool, position: SCNVector3, locationNodeLocation: CLLocation,
                                    locationManager: SceneLocationManager) -> CLLocationDistance {
         guard let location = locationManager.currentLocation else {
             return 0.0
@@ -155,7 +155,7 @@ open class LocationNode: SCNNode {
 
     /// See `LocationAnnotationNode`'s override of this function. Because it doesn't invoke `super`'s version, any changes
     /// made in this file must be repeated in `LocationAnnotationNode`.
-    func updatePositionAndScale(setup: Bool = false, scenePosition: SCNVector3?, locationNodeLocation nodeLocation: CLLocation,
+    open func updatePositionAndScale(setup: Bool = false, scenePosition: SCNVector3?, locationNodeLocation nodeLocation: CLLocation,
                                 locationManager: SceneLocationManager, onCompletion: (() -> Void)) {
         guard let position = scenePosition, locationManager.currentLocation != nil else {
             return
@@ -180,7 +180,7 @@ open class LocationNode: SCNNode {
     /// Converts distance from meters to SCNKit rendering order
     /// Constant multiplier eliminates flicker caused by slight distance variations
     /// Nodes with greater rendering orders are rendered last
-    func renderingOrder(fromDistance distance: CLLocationDistance) -> Int {
+    public func renderingOrder(fromDistance distance: CLLocationDistance) -> Int {
         return Int.max - 1000 - (Int(distance * 1000))
     }
 }

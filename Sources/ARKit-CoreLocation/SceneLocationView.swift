@@ -285,14 +285,29 @@ public extension SceneLocationView {
         let hitTests = touchedView.hitTest(coordinates)
 
         guard let firstHitTest = hitTests.first else {
+            self.locationNodeTouchDelegate?.touchedSomewhereElse()
             return
         }
-
+        
+        //self.locationNodeTouchDelegate?.nodeTouched(node: firstHitTest.node)
+        
         if let touchedNode = firstHitTest.node as? AnnotationNode {
             self.locationNodeTouchDelegate?.annotationNodeTouched(node: touchedNode)
-        } else if let locationNode = firstHitTest.node.parent as? LocationNode {
+        }
+        else if let locNode = firstHitTest.node as? LocationNode {
+            self.locationNodeTouchDelegate?.locationNodeTouched(node: locNode)
+        }
+        else if let locNode = firstHitTest.node as? LocationNode {
+            self.locationNodeTouchDelegate?.locationNodeTouched(node: locNode)
+        }
+        else if let locationNode = firstHitTest.node.parent as? LocationNode {
             self.locationNodeTouchDelegate?.locationNodeTouched(node: locationNode)
         }
+        else {
+            self.locationNodeTouchDelegate?.touchedSomewhereElse()
+        }
+        
+        
     }
 
     /// Each node's addition to the scene can silently fail; See `addLocationNodeWithConfirmedLocation(locationNode:)`.

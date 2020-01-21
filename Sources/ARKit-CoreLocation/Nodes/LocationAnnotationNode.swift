@@ -13,7 +13,7 @@ import CoreLocation
 open class LocationAnnotationNode: LocationNode {
     /// Subnodes and adjustments should be applied to this subnode
     /// Required to allow scaling at the same time as having a 2D 'billboard' appearance
-    public let annotationNode: AnnotationNode
+    public var annotationNode: AnnotationNode
     /// Parameter to raise or lower the label's rendering position relative to the node's actual project location.
     /// The default value of 1.1 places the label at a pleasing height above the node.
     /// To draw the label exactly on the true location, use a value of 0. To draw it below the true location,
@@ -75,7 +75,7 @@ open class LocationAnnotationNode: LocationNode {
     /// Note: we repeat code from `LocationNode`'s implementation of this function. Is this because of the use of `SCNTransaction`
     /// to wrap the changes? It's legal to nest the calls, should consider this if any more changes to
     /// `LocationNode`'s implementation are needed.
-    override func updatePositionAndScale(setup: Bool = false, scenePosition: SCNVector3?,
+    override open func updatePositionAndScale(setup: Bool = false, scenePosition: SCNVector3?,
                                          locationNodeLocation nodeLocation: CLLocation,
                                          locationManager: SceneLocationManager,
                                          onCompletion: (() -> Void)) {

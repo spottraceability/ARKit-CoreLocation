@@ -91,6 +91,19 @@ public extension CLLocation {
         let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
         return atan2(y, x).radiansToDegrees
     }
+    
+    func elevationDifference(between point: CLLocation) -> Double {
+        let alt1 = self.altitude
+        let alt2 = point.altitude
+
+        let heightDiff = alt2 - alt1
+        let distance = self.distance(from: point)
+        
+        let angle = atan2(heightDiff, distance)
+        
+        return angle.radiansToDegrees
+    }
+
 
     /// Returns the midpoint between two locations
     /// Note: Only usable for short distances like MKPolyline segments

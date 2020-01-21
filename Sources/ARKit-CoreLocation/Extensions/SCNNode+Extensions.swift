@@ -13,7 +13,7 @@ extension SCNNode {
     /// This method will select random values if you don't care which node is in front of the other,
     /// or you can specify a particular z-order value
     /// Note: rendering order will be changed later based on distance from camera
-    func removeFlicker (withRenderingOrder renderingOrder: Int = Int.random(in: 1..<Int.max)) {
+    public func removeFlicker (withRenderingOrder renderingOrder: Int = Int.random(in: 1..<Int.max)) {
         self.renderingOrder = renderingOrder
         if let geom = geometry {
             geom.materials.forEach { $0.readsFromDepthBuffer = false }

@@ -15,6 +15,7 @@ import MapKit
 public protocol LNTouchDelegate: class {
     func annotationNodeTouched(node: AnnotationNode)
     func locationNodeTouched(node: LocationNode)
+    func touchedSomewhereElse()
 }
 
 @available(iOS 11.0, *)
